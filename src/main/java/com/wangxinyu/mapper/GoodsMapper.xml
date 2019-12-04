@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangxinyu.mapper.GoodsMapper">
+
+<select id="getGoodsList" resultType="map">
+
+select a.*,group_concat(tname)tname from goods a left join center b on a.gid = b.gid left join type c on c.tid = b.tid 
+
+<where>
+	<if test="name">
+		a.gname like '%${name}%'
+	</if>
+</where>
+
+group by a.gid
+
+
+</select>
+
+
+<delete id="delete">
+
+delete from goods where gid in(${gid})
+
+</delete>
+
+<select id="getTypecList" resultType="map">
+
+select *from type
+
+</select>
+
+<insert id="add">
+
+insert into goods set gname=#{gname},price=#{price},datea=#{datea}
+
+</insert>
+<!-- 
+<update id="update">
+
+update goods set gname=#{gname},price=#{price},datea=#{datea}
+
+</update>
+ -->
+
+
+
+
+</mapper>
